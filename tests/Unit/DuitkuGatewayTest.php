@@ -58,4 +58,22 @@ class DuitkuGatewayTest extends TestCase
         Log::shouldHaveReceived('error')->once();
         $this->assertSame('Payment could not be processed. Please try again later.', $message);
     }
+
+    public function test_can_use_gateway_requires_config()
+    {
+        $gateway = new Duitku([
+            'merchant_code' => '',
+            'api_key' => '',
+            'payment_method' => 'QRIS',
+        ]);
+        $this->assertFalse($gateway->canUseGateway([], 'invoice'));
+
+        $configured = new Duitku([
+            'merchant_code' => 'M123',
+            'api_key' => 'secret',
+            'payment_method' => 'QRIS',
+        ]);
+
+        $this->assertTrue($configured->canUseGateway([], 'invoice'));
+    }
 }

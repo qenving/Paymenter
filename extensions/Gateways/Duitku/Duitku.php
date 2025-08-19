@@ -59,6 +59,14 @@ class Duitku extends Gateway
     }
 
     /**
+     * Determine if the gateway can be used for the given items.
+     */
+    public function canUseGateway($items, $type)
+    {
+        return !empty($this->config('merchant_code')) && !empty($this->config('api_key'));
+    }
+
+    /**
      * Process a payment and return redirect URL or error message.
      */
     public function pay(Invoice $invoice, $total)
