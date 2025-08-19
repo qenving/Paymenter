@@ -58,7 +58,7 @@ class Duitku extends Gateway
             'merchantOrderId' => $orderId,
             'productDetails' => 'Invoice #' . $invoice->id,
             'email' => $invoice->user->email,
-            'callbackUrl' => route('extensions.gateways.duitku.webhook', $invoice),
+            'callbackUrl' => route('extensions.gateways.duitku.webhook'),
             'returnUrl' => route('invoices.show', $invoice) . '?checkPayment=true',
             'signature' => $signature,
         ])->throw()->json();
